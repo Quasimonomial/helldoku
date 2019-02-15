@@ -16,4 +16,6 @@ To make this as explicit as possible: if you find yourself writing *any* method,
 
 As a final note - some bugs don't crash the whole program, and are sometimes a little unpredictable in their behavior. Once you're able to get the game successfully running for the first two turns with no immediate issues, I'd recommend one final run-through beginning to end, actually solving the Sudoku puzzle, to make sure you haven't missed anything.
 
+Oh and - please don't cheat by referencing methods in a working Sudoku game or, worse yet, copy/pasting methods from a working game into this one. Defeats the purpose of getting really comfortable with any kind of code, no matter how tangly :).
+
 Cool, that's it! Hope you enjoy this as much as I did making it :) 
