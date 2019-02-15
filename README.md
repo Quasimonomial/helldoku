@@ -12,6 +12,8 @@ In the course of writing this, I was actually shocked at how difficult it was to
 
 The bugs are all trivial to fix once identified - you should never have to find yourself writing whole methods or any other kind of substantial code. The point of this exercise was not to make people write code - it was to get them to really become proficient at reading even the most byzantine code and really understanding what's going on at each step to work backwards to debug anything quickly. You shouldn't have to write more than 100 characters of code to debug the entire program, and even that is on the higher end of the likely range. If you knew exactly what to fix, it would take you about five minutes to fix everything up.
 
+To make this as explicit as possible: if you find yourself writing *any* method, no matter how small or how few lines, you're doing something wrong and on the wrong track.
+
 As a final note - some bugs don't crash the whole program, and are sometimes a little unpredictable in their behavior. Once you're able to get the game successfully running for the first two turns with no immediate issues, I'd recommend one final run-through beginning to end, actually solving the Sudoku puzzle, to make sure you haven't missed anything.
 
 Cool, that's it! Hope you enjoy this as much as I did making it :) 
