@@ -14,7 +14,7 @@ class S
     @i_v = "DON'T MAKE ME TELL YOU TO PUT IN A VALID INTEGER AGAIN"
     @v_i = "Please enter a value between 1 and 9 (0 to clear the tile)"
     @w = "Congratulations, you win!"
-    @m = m
+    @m = m # initializes with the map
     r
   end
 
@@ -22,7 +22,7 @@ class S
     puts "#{c}"
   end
 
-  def f_v v = n
+  def f_v v = n # this gets us our new value
     until v && c_v?(v)
       begin
         S.s(v_i)
@@ -39,10 +39,10 @@ class S
     puts "you can never have too many of these"
   end
 
-  def r
+  def r # play the game
     r_g until c?
-    m.prn
-    S.s(w)
+    m.prn # print the map
+    S.s(w) # print w, which is the winners message
   end
 
   def self.ir(n)
@@ -60,7 +60,7 @@ class S
       rescue
         S.s(i_i)
         S.s("")
-        l = n
+        l = n # l is nil
       end
     end
     l
@@ -79,7 +79,7 @@ class S
     # This also returns 16
   end
 
-  def c_l?(l)
+  def c_l?(l) # checks that the input is a valid position, m.s is the size of the map
     l.is_a?(Array) && l.length == 2 && l.all? { |x| x.between?(0, m.s - 1) }
   end
 
@@ -92,8 +92,8 @@ class S
   end
 
   def r_g
-    m.prn
-    l = f_l
+    m.prn # print the map
+    l = f_l # get string
     v = f_v
     m[l] = v
   end
@@ -112,11 +112,18 @@ class S
     # This returns 2, regardless of N
   end
 
-  def c?
+  def c? # calculates the win
     begin
-      v.all? { |r| s?(r) } && h.all? { |c| s?(c) } && cs.all? { |c| s?(c) }
-    rescue
-      rand < 0.25
+      v.all? { |r|
+        m.s?(r)
+      } && h.all? { |c|
+        m.s?(c)
+      } && cs.all? { |c|
+        m.s?(c)
+      }
+    rescue => e
+      # rand < 0.99
+      false # this is a bad way to handle the error
     end
   end
 
@@ -131,6 +138,7 @@ class S
 
   private
   attr_reader :m, :i_i, :i_v, :w
+  attr_reader :v_i # had to add this so it's detected
 end
 
 
