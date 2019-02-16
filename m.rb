@@ -1,5 +1,5 @@
 require_relative "n"
-class M
+class M # The game board
   def self.eg
     Array.new(9) { Array.new(9) { N.new(0) } }
   end
@@ -12,17 +12,18 @@ class M
     v.transpose
   end
 
-  def onelasttry
-    puts "I'm just 'bout done with this"
-  end
+  # def onelasttry
+  #   puts "I'm just 'bout done with this"
+  # end
 
-  # FLAG
-# end Going to go with that this is error 1
+  # end Going to go with that this is error 1
 
   def prn
-    puts "  #{(0..8).to_a.join(" ")}"
+    puts "     #{(0..8).to_a.join(" ")}"
+    puts "     #{'-' * (2 * 9)}" # this is not fixing a bug your code is just ugly
     g.each_with_index do |v, i|
-      puts "#{i} #{v.join(" ")}"
+      # puts "#{i} #{v.join(" ")}"
+      puts "#{i} |  #{v.map{|t| t.n }.join(' ')}" # I don't know what you thought you were doing but do not do that
     end
   end
 
@@ -41,17 +42,19 @@ class M
   def self.ff(f)
     v = File.readlines(f).map(&:chomp)
     n = v.map do |r|
-    ns = r.split("").map { |l|
-      begin
-        Integer(l)
-      rescue
-        M.ff(f)
-      end
-    }
-    ns.map { |n| N.new(n) }
-  end
+      ns = r.split("").map { |l|
+        begin
+          Integer(l)
+        rescue => e
+          # M.ff(f) # lol wtf
+          # This causes infinate recurse, will instead get around your trickyness
+          0
+        end
+      }
+      ns.map { |n| N.new(n) }
+    end
 
-  self.new(n) # FLAG
+    self.new(n)
   end
 
   def c?

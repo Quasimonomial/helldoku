@@ -2,7 +2,6 @@
 require_relative "m"
 
 I = "Please enter a location on the map (e.g., '3,4')"
-FN = "puzzles/sudoku#{S.n(1)}.txt"
 
 class S
   def self.ff(f)
@@ -97,9 +96,10 @@ class S
     m[l] = v
   end
 
-  def gets
-    gets
-  end
+  # This is a FALSE method and must be stopped
+  # def gets
+  #   gets
+  # end
 
   def self.fn
     FN
@@ -134,6 +134,8 @@ end
 def testerthingy
   puts "maybe the problem is in here?"
 end
+
+FN = "puzzles/sudoku#{S.n(1)}.txt"
 
 
 class Integer
