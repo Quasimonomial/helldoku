@@ -1,4 +1,3 @@
-# so elegant! Only one line of code! Truly the pinnacle of programming
 require_relative "m"
 
 I = "Please enter a location on the map (e.g., '3,4')"
@@ -14,7 +13,7 @@ class S
     @i_v = "DON'T MAKE ME TELL YOU TO PUT IN A VALID INTEGER AGAIN"
     @v_i = "Please enter a value between 1 and 9 (0 to clear the tile)"
     @w = "Congratulations, you win!"
-    @m = m # initializes with the map
+    @m = m
     r
   end
 
@@ -25,12 +24,13 @@ class S
   def f_v v = n # Find Value
     until v && c_v?(v)
       # ERROR: Moving this outside the begin-resuce because it doesn't make sense to have it set up this way
-      S.s(v_i)
       # begin
       #   S.s(v_i)
       # rescue
       #   r_g
       # end
+      S.s(v_i)
+
       print "> "
       v = s_v(gets.chomp)
     end
@@ -43,13 +43,8 @@ class S
 
   def r # run the game
     r_g until c?
-    m.prn # print the map
-    S.s(w) # print w, which is the winners message
-  end
-
-  def self.ir(n)
-    S.v(n)**(I[45]).to_i
-    # This always returns 16
+    m.prn
+    S.s(w)
   end
 
   def f_l l = n # Find Location
@@ -61,7 +56,7 @@ class S
       rescue
         S.s(i_i)
         S.s("")
-        l = n # l is nil
+        l = n
       end
     end
     l
@@ -71,14 +66,15 @@ class S
     s.split(",").map { |char| Integer(char) }
   end
 
-  def c_l?(l) # checks that the input is a valid position, m.s is the size of the map
+  def c_l?(l)
     l.is_a?(Array) && l.length == 2 && l.all? { |x| x.between?(0, m.s - 1) }
   end
 
   def s_v(s) # This function is cursed
     begin
+      # ERROR: we return 16 instead of the value
       # S.m(s) # this is always 16
-      Integer(s) # why would we want to always return 16, use Integer here over to_i to cause it to throw errors on non integers rather than casting them
+      Integer(s) # use Integer here over to_i to cause it to throw errors on non integers rather than casting them
     rescue
       S.s(i_v)
       nil
@@ -86,16 +82,15 @@ class S
   end
 
   def r_g
-    m.prn # print the map
-    l = f_l # get string
+    m.prn
+    l = f_l
     v = f_v
+    # ERROR: need to update the value properly
     # m[l] = v
-    # L is X, Y;
-    m.v[l[1]][l[0]].n = v # ERROR: Update the value properly
-    # binding.pry
+    m.v[l[1]][l[0]].n = v
   end
 
-  # This is a FALSE method and must be stopped
+  # ERROR - causes infinate recursion when getting input
   # def gets
   #   gets
   # end
@@ -105,7 +100,6 @@ class S
   end
 
   def c? # calculates the win
-    # binding.pry
     begin
       # ERROR: these functions are all stored on the game map, not the soduku runner
       m.v.all? { |r|
@@ -128,19 +122,20 @@ class S
   end
 
   # CURSED NUMBER FUNCTIONS
-  def self.m(n)
+  def self.ir(n) # This always returns 16
+    S.v(n)**(I[45]).to_i
+  end
+
+  def self.m(n) # This always returns 16
     S.ir(n)
-    # This also returns 16
   end
 
-  def self.n(n)
+  def self.n(n) # This always returns 2
     S.v(n)
-    # This returns 2, regardless of N
   end
 
-  def self.v(n)
+  def self.v(n) # This always returns 2
     Integer(I[43])-1
-    # This returns 2, regardless of N
   end
 
   def n
@@ -149,8 +144,9 @@ class S
 
 
   private
-  attr_reader :m, :i_i, :i_v, :w
-  attr_reader :v_i # ERROR: missing this value from our readable messages
+  # ERROR: missing this value from our readable messages
+  # attr_reader :m, :i_i, :i_v, :w
+  attr_reader :m, :i_i, :i_v, :w, :v_i
 end
 
 
@@ -159,8 +155,7 @@ def testerthingy
   puts "maybe the problem is in here?"
 end
 
-# FN = "puzzles/sudoku#{S.n(1)}.txt" # gets puzzle 2
-FN = "puzzles/sudoku1-almost.txt"
+FN = "puzzles/sudoku#{S.n(1)}.txt" # gets puzzle 2
 
 # ERROR: randomly overwrites an Integer method which causes problems
 # class Integer
@@ -169,4 +164,4 @@ FN = "puzzles/sudoku1-almost.txt"
 #   end
 # end
 
-s = S.ff(S.fn)
+s = S.ff(S.fn) # Starts the process
