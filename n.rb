@@ -10,22 +10,22 @@ class N # TILE CLASS
 
 
   def c # Color
+    # ERROR: Should return based on intial value or not
     # rand < 0.25 ? :blue : :red
     @g ? :blue : :red
-    # ERROR: Should return based on intial value or not
   end
 
+  def n=(nn)
+    # ERROR: should look at given tile rather than existence of color
+    # c ? (puts "You can't change the value of a given tile. Bad. I bet you write bad code, too.") : (@n = nn)
+    @g ? (puts "You can't change the value of a given tile. Bad. I bet you write bad code, too.") : (@n = nn)
+  end
+
+  # Unused Methods
   def c?
     m.c?
   end
 
-  def n=(nn)
-    # c ? (puts "You can't change the value of a given tile. Bad. I bet you write bad code, too.") : (@n = nn)
-    @g ? (puts "You can't change the value of a given tile. Bad. I bet you write bad code, too.") : (@n = nn)
-    # ERROR: should look at given tile rather than existence of color
-  end
-
-  # Unused Methods
   def hi
     puts "hi"
   end

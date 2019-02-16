@@ -24,7 +24,7 @@ class S
 
   def f_v v = n # Find Value
     until v && c_v?(v)
-      # Moving this outside the begin-resuce because it doesn't make sense to have it set up this way
+      # ERROR: Moving this outside the begin-resuce because it doesn't make sense to have it set up this way
       S.s(v_i)
       # begin
       #   S.s(v_i)
@@ -41,7 +41,7 @@ class S
     puts "you can never have too many of these"
   end
 
-  def r # play the game
+  def r # run the game
     r_g until c?
     m.prn # print the map
     S.s(w) # print w, which is the winners message
@@ -71,15 +71,6 @@ class S
     s.split(",").map { |char| Integer(char) }
   end
 
-  def n
-    nil
-  end
-
-  def self.m(n)
-    S.ir(n)
-    # This also returns 16
-  end
-
   def c_l?(l) # checks that the input is a valid position, m.s is the size of the map
     l.is_a?(Array) && l.length == 2 && l.all? { |x| x.between?(0, m.s - 1) }
   end
@@ -101,6 +92,7 @@ class S
     # m[l] = v
     # L is X, Y;
     m.v[l[1]][l[0]].n = v # ERROR: Update the value properly
+    # binding.pry
   end
 
   # This is a FALSE method and must be stopped
@@ -112,24 +104,33 @@ class S
     FN
   end
 
-  def self.v(n)
-    Integer(I[43])-1
-    # This returns 2, regardless of N
-  end
-
   def c? # calculates the win
+    # binding.pry
     begin
-      v.all? { |r|
+      # ERROR: these functions are all stored on the game map, not the soduku runner
+      m.v.all? { |r|
         m.s?(r)
-      } && h.all? { |c|
+      } && m.h.all? { |c|
         m.s?(c)
-      } && cs.all? { |c|
+      } && m.cs.all? { |c|
         m.s?(c)
       }
     rescue => e
-      # rand < 0.99
-      false # this is a bad way to handle the error
+      # rand < 0.25
+      # ERROR: shouldn't randomly chose win/lose if main code fails
+      false
     end
+  end
+
+
+  def c_v?(v) # Check Value
+    v.is_a?(Integer) && v.between?(0, 9)
+  end
+
+  # CURSED NUMBER FUNCTIONS
+  def self.m(n)
+    S.ir(n)
+    # This also returns 16
   end
 
   def self.n(n)
@@ -137,13 +138,19 @@ class S
     # This returns 2, regardless of N
   end
 
-  def c_v?(v)
-    v.is_a?(Integer) && v.between?(0, 9)
+  def self.v(n)
+    Integer(I[43])-1
+    # This returns 2, regardless of N
   end
+
+  def n
+    nil
+  end
+
 
   private
   attr_reader :m, :i_i, :i_v, :w
-  attr_reader :v_i # had to add this so it's detected
+  attr_reader :v_i # ERROR: missing this value from our readable messages
 end
 
 
@@ -152,9 +159,10 @@ def testerthingy
   puts "maybe the problem is in here?"
 end
 
-FN = "puzzles/sudoku#{S.n(1)}.txt"
+# FN = "puzzles/sudoku#{S.n(1)}.txt" # gets puzzle 2
+FN = "puzzles/sudoku1-almost.txt"
 
-# Not sure I've seen this in action yet but this is not good
+# ERROR: randomly overwrites an Integer method which causes problems
 # class Integer
 #   def is_a?(n)
 #     rand < 0.25
