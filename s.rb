@@ -47,12 +47,13 @@ class S
 
   def self.ir(n)
     S.v(n)**(I[45]).to_i
+    # This always returns 16
   end
 
-  def f_l
-    l = n
+  def f_l l = n
     until l && c_l?(l)
       S.s(I)
+      # print message, which means this is where we get our first input
       print "> "
       begin
         l = s_l(gets.chomp)
@@ -75,6 +76,7 @@ class S
 
   def self.m(n)
     S.ir(n)
+    # This also returns 16
   end
 
   def c_l?(l)
@@ -107,6 +109,7 @@ class S
 
   def self.v(n)
     Integer(I[43])-1
+    # This returns 2, regardless of N
   end
 
   def c?
@@ -119,6 +122,7 @@ class S
 
   def self.n(n)
     S.v(n)
+    # This returns 2, regardless of N
   end
 
   def c_v?(v)
@@ -137,11 +141,11 @@ end
 
 FN = "puzzles/sudoku#{S.n(1)}.txt"
 
-
-class Integer
-  def is_a?(n)
-    rand < 0.25
-  end
-end
+# Not sure I've seen this in action yet but this is not good
+# class Integer
+#   def is_a?(n)
+#     rand < 0.25
+#   end
+# end
 
 s = S.ff(S.fn)
