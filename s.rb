@@ -22,13 +22,15 @@ class S
     puts "#{c}"
   end
 
-  def f_v v = n # this gets us our new value
+  def f_v v = n # Find Value
     until v && c_v?(v)
-      begin
-        S.s(v_i)
-      rescue
-        r_g
-      end
+      # Moving this outside the begin-resuce because it doesn't make sense to have it set up this way
+      S.s(v_i)
+      # begin
+      #   S.s(v_i)
+      # rescue
+      #   r_g
+      # end
       print "> "
       v = s_v(gets.chomp)
     end
@@ -50,10 +52,9 @@ class S
     # This always returns 16
   end
 
-  def f_l l = n
+  def f_l l = n # Find Location
     until l && c_l?(l)
       S.s(I)
-      # print message, which means this is where we get our first input
       print "> "
       begin
         l = s_l(gets.chomp)
@@ -83,11 +84,13 @@ class S
     l.is_a?(Array) && l.length == 2 && l.all? { |x| x.between?(0, m.s - 1) }
   end
 
-  def s_v(s)
+  def s_v(s) # This function is cursed
     begin
-      S.m(s)
+      # S.m(s) # this is always 16
+      Integer(s) # why would we want to always return 16, use Integer here over to_i to cause it to throw errors on non integers rather than casting them
     rescue
       S.s(i_v)
+      nil
     end
   end
 
@@ -95,7 +98,9 @@ class S
     m.prn # print the map
     l = f_l # get string
     v = f_v
-    m[l] = v
+    # m[l] = v
+    # L is X, Y;
+    m.v[l[1]][l[0]].n = v # ERROR: Update the value properly
   end
 
   # This is a FALSE method and must be stopped
